@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Panduan BATNAS Downloader - BIG Downloader Toolbox">
+    <!-- Main Content -->
+    <section class="pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="w-20 h-20 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <img src="/assets/img/icon_batnas.png" alt="BATNAS Icon" class="w-12 h-12">
+                </div>
+                <h1 class="text-4xl font-extrabold mb-4">Panduan BATNAS Downloader</h1>
+                <p class="text-slate-400 text-lg">Download Batimetri Nasional untuk analisis kedalaman perairan
+                    Indonesia
+                </p>
+            </div>
+
+            <!-- Tentang BATNAS -->
+            <div class="rounded-2xl glass p-8 border-t border-blue-500/20 mb-8">
+                <h2 class="text-2xl font-bold mb-4 text-blue-400">Tentang BATNAS</h2>
+                <p class="text-slate-300 mb-4">
+                    BATNAS (Batimetri Nasional) adalah data kedalaman perairan Indonesia yang mencakup laut, danau, dan
+                    sungai besar. Data ini sangat penting untuk navigasi maritim, perencanaan pelabuhan, studi
+                    oseanografi, dan analisis potensi sumber daya laut.
+                </p>
+                <div class="bg-slate-800 p-4 rounded-lg text-sm text-blue-400 border border-blue-500/20">
+                    💡 <b>Info:</b> BATNAS menyediakan informasi kedalaman perairan dengan resolusi yang bervariasi
+                    tergantung area dan metode pengukuran.
+                </div>
+            </div>
+
+            <!-- Panduan Penggunaan -->
+            <div class="rounded-2xl glass p-8 border-t border-blue-500/20">
+                <h2 class="text-2xl font-bold mb-6 text-white">Langkah-Langkah Penggunaan</h2>
+                <div class="space-y-6 text-slate-300">
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 1: Buka Tool BATNAS Downloader</h3>
+                        <p>Buka plugin BIG Downloader di QGIS, ArcGIS Pro, atau ArcMap. Pilih tool <b>BATNAS
+                                Downloader</b> dari toolbox.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 2: Load Grid Index BATNAS</h3>
+                        <p>Sama seperti DEMNAS, tool ini memerlukan Grid Index BATNAS:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li>Download Grid Index BATNAS dari halaman download website</li>
+                            <li>Load file shapefile Grid Index ke dalam tool</li>
+                            <li>Grid akan menampilkan tile-tile BATNAS yang tersedia</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 3: Pilih Area Perairan</h3>
+                        <p>Tentukan area perairan yang ingin Anda download data batimetrinya:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li><b>Canvas Extent:</b> Area tampilan peta saat ini</li>
+                            <li><b>Layer Extent:</b> Extent dari layer perairan yang dipilih</li>
+                            <li><b>Selected Features:</b> Tile yang dipilih manual dari Grid Index</li>
+                            <li><b>Draw on Canvas:</b> Gambar polygon area secara manual</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 4: Masukkan Token API</h3>
+                        <p>Masukkan token API dari Ina-Geoportal. Token yang sama dengan DEMNAS/RBI bisa digunakan.
+                            Lihat <a href="/token_guide" class="text-blue-400 underline">Panduan Token API</a>.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 5: Konfigurasi Output</h3>
+                        <p>Atur opsi output sesuai kebutuhan:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li><b>Merge Tiles:</b> Gabungkan tile menjadi satu raster seamless</li>
+                            <li><b>Clip to Coastline:</b> Potong data hanya untuk area perairan</li>
+                            <li><b>Invert Values:</b> Ubah nilai negatif (kedalaman) menjadi positif</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 6: Tentukan Folder Output</h3>
+                        <p>Pilih lokasi penyimpanan file BATNAS. Tool akan membuat subfolder untuk mengorganisir
+                            tile-tile yang didownload.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 7: Jalankan Tool</h3>
+                        <p>Klik <b>Run</b> atau <b>OK</b> untuk memulai. Proses yang terjadi:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li>Identifikasi tile BATNAS yang overlap dengan area</li>
+                            <li>Download tile dari server BIG secara otomatis</li>
+                            <li>Processing data (merge, clip, invert) jika dipilih</li>
+                            <li>Tampilkan progress bar dan log detail</li>
+                            <li>Load hasil ke peta dengan styling kedalaman</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4 rounded-xl overflow-hidden shadow-2xl border border-slate-700">
+                        <img src="/assets/img/screenshot_batnas.png" alt="Screenshot BATNAS Tool" class="w-full">
+                        <div class="bg-slate-800 p-2 text-center text-xs text-slate-400">
+                            Ilustrasi: Interface BATNAS Downloader Tool
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips & Troubleshooting -->
+                <div class="mt-8 space-y-4">
+                    <div class="bg-blue-900/20 p-4 rounded-lg text-sm text-blue-400 border border-blue-500/20">
+                        ✅ <b>Tips:</b> BATNAS sangat berguna untuk analisis rute pelayaran, studi tsunami, dan
+                        perencanaan infrastruktur pesisir. Kombinasikan dengan DEMNAS untuk analisis coastal zone yang
+                        komprehensif.
+                    </div>
+
+                    <div class="bg-yellow-900/20 p-4 rounded-lg text-sm text-yellow-400 border border-yellow-500/20">
+                        ⚠ <b>Perhatian:</b> Tidak semua area perairan Indonesia memiliki data BATNAS. Coverage terbatas
+                        pada area yang sudah dilakukan survei batimetri.
+                    </div>
+
+                    <div class="bg-cyan-900/20 p-4 rounded-lg text-sm text-cyan-400 border border-cyan-500/20">
+                        💾 <b>Output:</b> File BATNAS dalam format GeoTIFF dengan nilai kedalaman (biasanya negatif,
+                        di bawah permukaan laut). Gunakan opsi "Invert Values" untuk mendapatkan nilai positif.
+                    </div>
+
+                    <div class="bg-purple-900/20 p-4 rounded-lg text-sm text-purple-400 border border-purple-500/20">
+                        🔧 <b>Troubleshooting:</b> Jika tile tidak tersedia, cek Grid Index untuk melihat coverage area.
+                        Beberapa perairan dalam (deep ocean) mungkin belum memiliki data detail.
+                    </div>
+
+                    <div class="bg-emerald-900/20 p-4 rounded-lg text-sm text-emerald-400 border border-emerald-500/20">
+                        📊 <b>Visualisasi:</b> Gunakan color ramp "Blues" atau "Ocean" untuk visualisasi yang lebih
+                        intuitif. Nilai lebih gelap = lebih dalam.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</Layout>

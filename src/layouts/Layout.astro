@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Plugin QGIS Terbaik untuk Download Data Geospasial Indonesia (RBI, DEMNAS, BATNAS) secara otomatis. Gratis Seumur Hidup!" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-slate-900 text-white min-h-screen selection:bg-emerald-500 selection:text-white">
+        <!-- Navbar -->
+        <nav class="fixed w-full z-50 glass border-b border-slate-700/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0 flex items-center gap-3">
+                        <img src="/assets/images/logo-ahza.png" alt="Logo" class="h-10 w-auto">
+                        <a href="/" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">BIG Downloader</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="/#features" class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition">Fitur</a>
+                            <a href="/#gallery" class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition">Galeri</a>
+
+                            <!-- Dropdown Panduan -->
+                            <div class="relative group">
+                                <button class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition flex items-center gap-1">
+                                    Panduan Penggunaan
+                                    <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <div class="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                    <div class="glass rounded-lg shadow-xl border border-slate-700 overflow-hidden">
+                                        <a href="/token_guide" class="block px-4 py-3 text-sm hover:bg-emerald-500/10 hover:text-emerald-400 transition border-b border-slate-700/50">
+                                            <div class="font-semibold">Panduan Token API</div>
+                                            <div class="text-xs text-slate-400">Cara mendapatkan token</div>
+                                        </a>
+                                        <a href="/guide_rbi" class="block px-4 py-3 text-sm hover:bg-emerald-500/10 hover:text-emerald-400 transition border-b border-slate-700/50">
+                                            <div class="font-semibold">RBI Downloader</div>
+                                            <div class="text-xs text-slate-400">Download Peta RBI</div>
+                                        </a>
+                                        <a href="/guide_demnas" class="block px-4 py-3 text-sm hover:bg-cyan-500/10 hover:text-cyan-400 transition border-b border-slate-700/50">
+                                            <div class="font-semibold">DEMNAS Downloader</div>
+                                            <div class="text-xs text-slate-400">Download DEM Nasional</div>
+                                        </a>
+                                        <a href="/guide_batnas" class="block px-4 py-3 text-sm hover:bg-blue-500/10 hover:text-blue-400 transition">
+                                            <div class="font-semibold">BATNAS Downloader</div>
+                                            <div class="text-xs text-slate-400">Download Batimetri Nasional</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="/#download" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-emerald-500/20">Download Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+		<slot />
+
+        <!-- Footer -->
+        <footer class="py-8 border-t border-slate-800 text-center text-slate-500 text-sm">
+            <p>&copy; 2024 Ahza Studio. Developed by <span class="text-emerald-400">Ardi Abu Ridho</span>.</p>
+        </footer>
+
+		<script is:inline src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"79f60335dcfb450fb1430ce54f8a0172","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+	</body>
+</html>

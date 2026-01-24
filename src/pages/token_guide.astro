@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Panduan Token API - BIG Downloader Toolbox">
+    <!-- Main Content -->
+    <section class="pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl font-extrabold mb-4">Cara Mendapatkan Token API</h1>
+                <p class="text-slate-400 text-lg">Token diperlukan untuk mengakses data DEMNAS, BATNAS, dan RBI dari
+                    server Tanah Air.</p>
+            </div>
+
+            <!-- Panduan Manual -->
+            <div class="rounded-2xl glass p-8 border-t border-emerald-500/20">
+                <div class="space-y-6 text-slate-300">
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 1: Buka Halaman Login</h3>
+                        <p>Buka halaman <a href="https://tanahair.indonesia.go.id/portal-web/login" target="_blank"
+                                class="text-emerald-400 underline">Login Ina-Geoportal</a>. <br><span
+                                class="text-yellow-400 font-bold">PENTING: JANGAN Login dulu!</span> Biarkan kolom
+                            username/password kosong atau terisi, tapi jangan klik tombol Masuk.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 2: Buka Developer Tools</h3>
+                        <p>Tekan tombol <kbd class="bg-slate-700 px-2 py-1 rounded">F12</kbd> di keyboard Anda (atau
+                            Klik Kanan > <i>Inspect</i>) untuk membuka panel Developer Tools. Pilih tab <b>Network</b>.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 3: Lakukan Login</h3>
+                        <p>Setelah tab Network terbuka, silakan isi username & password Anda di halaman web, lalu klik
+                            tombol <b>Masuk / Login</b>.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-white text-lg mb-2">Langkah 4: Filter "signin" & Salin Token</h3>
+                        <p>Di daftar Network, cari nama request <code>signin</code> (gunakan kotak filter jika perlu).
+                            Klik request tersebut.</p>
+                        <p class="mt-2">Lihat di panel kanan (tab <b>Preview</b> atau <b>Response</b>). Cari teks
+                            <code>accessToken: "..."</code>. Salin kode panjang di dalamnya.</p>
+                        <div
+                            class="mt-2 bg-slate-800 p-3 rounded font-mono text-xs text-emerald-300 break-all border border-slate-700">
+                            Contoh Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzY3MDM4NmQt...
+                        </div>
+                    </div>
+
+                    <div class="mt-4 rounded-xl overflow-hidden shadow-2xl border border-slate-700">
+                        <img src="/assets/img/token_guide.png" alt="Panduan Inspect Element" class="w-full">
+                        <div class="bg-slate-800 p-2 text-center text-xs text-slate-400">
+                            Ilustrasi: Tab Network > Filter "signin" > Response > Ambil accessToken
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-slate-800 p-4 rounded-lg text-sm text-yellow-500 border border-yellow-500/20">
+                    ⚠ <b>Penting:</b> Token ini bersifat sementara (sekitar 1-2 jam). Jika kadaluarsa, ulangi langkah
+                    ini.
+                </div>
+            </div>
+
+        </div>
+    </section>
+</Layout>
