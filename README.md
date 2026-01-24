@@ -1,6 +1,7 @@
-# BIG Downloader Toolbox & Website
-
-![BIG Downloader Banner](/public/assets/img/logo.png)
+<div align="center">
+  <img src="/public/assets/img/logo.png" width="150" alt="BIG Downloader Logo" />
+  <h1>BIG Downloader Toolbox & Website</h1>
+</div>
 
 **BIG Downloader Toolbox** adalah solusi All-in-One untuk kebutuhan data geospasial Indonesia. Proyek ini mencakup website landing page modern dan koleksi toolbox GIS untuk download otomatis data RBI, DEMNAS, dan BATNAS.
 
