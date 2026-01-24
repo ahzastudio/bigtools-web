@@ -106,15 +106,15 @@ import Layout from '../layouts/Layout.astro';
             <!-- QGIS Section -->
             <div class="mb-12">
                 <h3 class="text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
-                    <img src="/assets/img/logo_qgis.svg" class="w-8 h-8 rounded-full bg-white p-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/QGIS_logo_new.svg" class="w-8 h-8 rounded-full bg-white p-1">
                     QGIS Plugin
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
                         <img src="/assets/img/screenshot_rbi.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Tool RBI">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Tool RBI" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download RBI</h4>
                         </div>
@@ -122,8 +122,8 @@ import Layout from '../layouts/Layout.astro';
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
                         <img src="/assets/img/screenshot_batnas.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Tool BATNAS">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Tool BATNAS" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download BATNAS</h4>
                         </div>
@@ -131,8 +131,8 @@ import Layout from '../layouts/Layout.astro';
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
                         <img src="/assets/img/screenshot_demnas.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Tool DEMNAS">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Tool DEMNAS" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download DEMNAS</h4>
                         </div>
@@ -140,8 +140,8 @@ import Layout from '../layouts/Layout.astro';
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
                         <img src="/assets/img/screenshot_login.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Tool Login">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Tool Login" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Login Guide (Manual)</h4>
                         </div>
@@ -159,8 +159,8 @@ import Layout from '../layouts/Layout.astro';
                      <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
                         <img src="/assets/img/screenshot_pro_login.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Pro Login">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Pro Login" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Login Guide (ArcGIS Pro)</h4>
                         </div>
@@ -168,8 +168,8 @@ import Layout from '../layouts/Layout.astro';
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
                         <img src="/assets/img/screenshot_pro_demnas.png"
-                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500"
-                            alt="Pro DEMNAS">
+                            class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
+                            alt="Pro DEMNAS" onclick="openLightbox(this.src)">
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download DEMNAS (ArcGIS Pro)</h4>
                         </div>
@@ -263,3 +263,46 @@ import Layout from '../layouts/Layout.astro';
         </div>
     </section>
 </Layout>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out opacity-0 transition-opacity duration-300" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Full Preview" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+    <button class="absolute top-4 right-4 text-white hover:text-emerald-400 transition" onclick="closeLightbox()">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    window.openLightbox = (imageSrc) => {
+        lightboxImg.src = imageSrc;
+        lightbox.classList.remove('hidden');
+        // Small delay to allow display:flex to apply before opacity transition
+        setTimeout(() => {
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+            lightboxImg.classList.add('scale-100');
+        }, 10);
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    window.closeLightbox = () => {
+        lightbox.classList.add('opacity-0');
+        lightboxImg.classList.remove('scale-100');
+        lightboxImg.classList.add('scale-95');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightboxImg.src = '';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }, 300);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+            closeLightbox();
+        }
+    });
+</script>
