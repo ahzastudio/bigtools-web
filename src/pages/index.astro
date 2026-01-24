@@ -1,5 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for optimization
+import logoImg from '../assets/img/logo.png';
+import heroScreenshot from '../assets/img/screenshot_demnas.png';
+import iconRbi from '../assets/img/icon_rbi.png';
+import iconDemnas from '../assets/img/icon_demnas.png';
+import iconLogin from '../assets/img/icon_login.png';
+import qgisLogo from '../assets/img/logo_qgis.svg?raw'; // SVG raw import if needed, but lets use CDN for svg or regular img tag for svg if local. Actually SVG doesn't need optimization. Let's stick to CDN for QGIS logo as it worked well.
+
+// Screenshots
+import screenRbi from '../assets/img/screenshot_rbi.png';
+import screenBatnas from '../assets/img/screenshot_batnas.png';
+import screenDemnas from '../assets/img/screenshot_demnas.png';
+import screenLogin from '../assets/img/screenshot_login.png';
+
+import screenProLogin from '../assets/img/screenshot_pro_login.png';
+import screenProRbi from '../assets/img/screenshot_pro_rbi.png';
+import screenProDemnas from '../assets/img/screenshot_pro_demnas.png';
+import screenProBatnas from '../assets/img/screenshot_pro_batnas.png';
+
+import screenArcmap1 from '../assets/img/screenshot_arcmap.png';
+import screenArcmap2 from '../assets/img/screenshot_arcmap_2.png';
+import screenArcmap3 from '../assets/img/screenshot_arcmap_3.png';
+
 ---
 
 <Layout title="BIG Downloader Toolbox - Download Peta Indonesia Sekali Klik">
@@ -15,8 +40,8 @@ import Layout from '../layouts/Layout.astro';
                 class="inline-block py-1 px-3 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-wide uppercase mb-6 animate-pulse">
                 v2.0 • QGIS, ArcGIS Pro & ArcMap
             </span>
-            <img src="/assets/img/logo.png" alt="Big Downloader Logo"
-                class="w-32 h-32 mx-auto mb-8 drop-shadow-2xl animate-bounce-slow">
+            <Image src={logoImg} alt="Big Downloader Logo" width={128} height={128}
+                class="w-32 h-32 mx-auto mb-8 drop-shadow-2xl animate-bounce-slow" />
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
                 Download Peta Indonesia<br>
                 <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">Tanpa Ribet,
@@ -43,7 +68,7 @@ import Layout from '../layouts/Layout.astro';
 
             <!-- Hero Screenshot -->
             <div class="mt-16 rounded-xl overflow-hidden shadow-2xl border border-slate-700/50 max-w-4xl mx-auto">
-                <img src="/assets/img/screenshot_demnas.png" alt="Demo DEMNAS" class="w-full">
+                <Image src={heroScreenshot} alt="Demo DEMNAS" class="w-full" />
             </div>
         </div>
     </section>
@@ -61,7 +86,7 @@ import Layout from '../layouts/Layout.astro';
                     class="p-8 rounded-2xl glass hover:bg-slate-800/50 transition duration-300 border-t border-emerald-500/20 text-center group">
                     <div
                         class="w-20 h-20 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition">
-                        <img src="/assets/img/icon_rbi.png" alt="RBI Icon" class="w-12 h-12">
+                        <Image src={iconRbi} alt="RBI Icon" class="w-12 h-12" width={48} height={48} />
                     </div>
                     <h3 class="text-xl font-bold mb-3">Multi-Platform</h3>
                     <p class="text-slate-400">Mendukung QGIS 3.x, ArcGIS Pro (PYT), dan ArcMap 10.x (TBX). Gunakan di
@@ -73,7 +98,7 @@ import Layout from '../layouts/Layout.astro';
                     class="p-8 rounded-2xl glass hover:bg-slate-800/50 transition duration-300 border-t border-cyan-500/20 text-center group">
                     <div
                         class="w-20 h-20 bg-cyan-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition">
-                        <img src="/assets/img/icon_demnas.png" alt="DEMNAS Icon" class="w-12 h-12">
+                        <Image src={iconDemnas} alt="DEMNAS Icon" class="w-12 h-12" width={48} height={48} />
                     </div>
                     <h3 class="text-xl font-bold mb-3">DEMNAS & BATNAS</h3>
                     <p class="text-slate-400">Integrasi langsung ke server BIG untuk unduh data DEM Nasional dan
@@ -85,7 +110,7 @@ import Layout from '../layouts/Layout.astro';
                     class="p-8 rounded-2xl glass hover:bg-slate-800/50 transition duration-300 border-t border-purple-500/20 text-center group">
                     <div
                         class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition">
-                        <img src="/assets/img/icon_login.png" alt="Login Icon" class="w-12 h-12">
+                        <Image src={iconLogin} alt="Login Icon" class="w-12 h-12" width={48} height={48} />
                     </div>
                     <h3 class="text-xl font-bold mb-3">Auto-Login System</h3>
                     <p class="text-slate-400">Tidak perlu login manual berulang kali. Plugin menangani autentikasi ke
@@ -106,42 +131,42 @@ import Layout from '../layouts/Layout.astro';
             <!-- QGIS Section -->
             <div class="mb-12">
                 <h3 class="text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/QGIS_logo_new.svg" class="w-8 h-8 rounded-full bg-white p-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/QGIS_logo_new.svg" class="w-8 h-8 rounded-full bg-white p-1" alt="QGIS Logo">
                     QGIS Plugin
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
-                        <img src="/assets/img/screenshot_rbi.png"
+                        <Image src={screenRbi}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Tool RBI" onclick="openLightbox(this.src)">
+                            alt="Tool RBI" onclick={`openLightbox('${screenRbi.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download RBI</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
-                        <img src="/assets/img/screenshot_batnas.png"
+                        <Image src={screenBatnas}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Tool BATNAS" onclick="openLightbox(this.src)">
+                            alt="Tool BATNAS" onclick={`openLightbox('${screenBatnas.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download BATNAS</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
-                        <img src="/assets/img/screenshot_demnas.png"
+                        <Image src={screenDemnas}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Tool DEMNAS" onclick="openLightbox(this.src)">
+                            alt="Tool DEMNAS" onclick={`openLightbox('${screenDemnas.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Batch Download DEMNAS</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-emerald-500 transition">
-                        <img src="/assets/img/screenshot_login.png"
+                        <Image src={screenLogin}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Tool Login" onclick="openLightbox(this.src)">
+                            alt="Tool Login" onclick={`openLightbox('${screenLogin.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Login Guide (Manual)</h4>
                         </div>
@@ -152,42 +177,42 @@ import Layout from '../layouts/Layout.astro';
              <!-- ArcGIS Pro Section -->
             <div class="mb-12">
                 <h3 class="text-2xl font-bold text-blue-400 mb-6 flex items-center gap-3">
-                    <img src="/assets/images/ESRI-ArcGIS-Pro-2.8.3-x64.png" class="w-8 h-8 object-contain">
+                    <img src="/assets/images/ESRI-ArcGIS-Pro-2.8.3-x64.png" class="w-8 h-8 object-contain" alt="ArcGIS Pro Logo">
                     ArcGIS Pro Toolbox
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                      <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
-                        <img src="/assets/img/screenshot_pro_login.png"
+                        <Image src={screenProLogin}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Pro Login" onclick="openLightbox(this.src)">
+                            alt="Pro Login" onclick={`openLightbox('${screenProLogin.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Login Guide (ArcGIS Pro)</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
-                        <img src="/assets/img/screenshot_pro_rbi.png"
+                        <Image src={screenProRbi}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Pro RBI" onclick="openLightbox(this.src)">
+                            alt="Pro RBI" onclick={`openLightbox('${screenProRbi.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download RBI (ArcGIS Pro)</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
-                        <img src="/assets/img/screenshot_pro_demnas.png"
+                        <Image src={screenProDemnas}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Pro DEMNAS" onclick="openLightbox(this.src)">
+                            alt="Pro DEMNAS" onclick={`openLightbox('${screenProDemnas.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download DEMNAS (ArcGIS Pro)</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-blue-500 transition">
-                        <img src="/assets/img/screenshot_pro_batnas.png"
+                        <Image src={screenProBatnas}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="Pro BATNAS" onclick="openLightbox(this.src)">
+                            alt="Pro BATNAS" onclick={`openLightbox('${screenProBatnas.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download BATNAS (ArcGIS Pro)</h4>
                         </div>
@@ -198,33 +223,33 @@ import Layout from '../layouts/Layout.astro';
             <!-- ArcMap Section -->
             <div class="mb-12">
                 <h3 class="text-2xl font-bold text-purple-400 mb-6 flex items-center gap-3">
-                    <img src="/assets/images/arcmapICONfull.png" class="w-8 h-8 object-contain">
+                    <img src="/assets/images/arcmapICONfull.png" class="w-8 h-8 object-contain" alt="ArcMap Logo">
                     ArcMap Toolbox
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-purple-500 transition">
-                        <img src="/assets/img/screenshot_arcmap.png"
+                        <Image src={screenArcmap1}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="ArcMap DEMNAS" onclick="openLightbox(this.src)">
+                            alt="ArcMap DEMNAS" onclick={`openLightbox('${screenArcmap1.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download DEMNAS (ArcMap)</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-purple-500 transition">
-                        <img src="/assets/img/screenshot_arcmap_2.png"
+                        <Image src={screenArcmap2}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="ArcMap RBI" onclick="openLightbox(this.src)">
+                            alt="ArcMap RBI" onclick={`openLightbox('${screenArcmap2.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download RBI (ArcMap)</h4>
                         </div>
                     </div>
                     <div
                         class="rounded-xl overflow-hidden shadow-2xl border border-slate-700 group cursor-pointer hover:border-purple-500 transition">
-                        <img src="/assets/img/screenshot_arcmap_3.png"
+                        <Image src={screenArcmap3}
                             class="w-full h-64 object-cover object-top group-hover:scale-105 transition duration-500 cursor-zoom-in"
-                            alt="ArcMap BATNAS" onclick="openLightbox(this.src)">
+                            alt="ArcMap BATNAS" onclick={`openLightbox('${screenArcmap3.src}')`} />
                         <div class="p-4 bg-slate-800">
                             <h4 class="font-bold text-center">Download BATNAS (ArcMap)</h4>
                         </div>
@@ -303,7 +328,7 @@ import Layout from '../layouts/Layout.astro';
                         class="group flex flex-col items-center justify-center p-6 bg-slate-700 border border-slate-500/50 rounded-xl hover:bg-slate-600 hover:border-slate-400 hover:scale-105 transition duration-300">
                         <div class="w-12 h-12 mb-3 text-white">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
-                                class="w-full h-full">
+                                class="w-full h-full" alt="GDrive logo">
                         </div>
                         <span class="font-bold text-lg">Data Batas</span>
                         <span class="text-xs text-slate-400">Google Drive (Link 2)</span>
@@ -331,6 +356,7 @@ import Layout from '../layouts/Layout.astro';
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
 
+    // Make functions globally available
     window.openLightbox = (imageSrc) => {
         lightboxImg.src = imageSrc;
         lightbox.classList.remove('hidden');
