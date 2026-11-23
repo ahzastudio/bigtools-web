@@ -1,67 +1,113 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import screenLogin from '../assets/img/screenshot_login.png';
 ---
 
 <Layout title="Panduan Token API - BIG Downloader Toolbox">
-    <!-- Main Content -->
-    <section class="pt-32 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h1 class="text-4xl font-extrabold mb-4">Cara Mendapatkan Token API</h1>
-                <p class="text-slate-400 text-lg">Token diperlukan untuk mengakses data DEMNAS, BATNAS, dan RBI dari
-                    server Tanah Air.</p>
-            </div>
+	<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+		<nav aria-label="Breadcrumb" class="mb-6">
+			<ol class="flex items-center gap-2 text-xs font-mono text-ink-muted">
+				<li><a href="/" class="hover:text-accent transition-colors">Beranda</a></li>
+				<li aria-hidden="true">/</li>
+				<li class="text-ink" aria-current="page">Panduan Token API</li>
+			</ol>
+		</nav>
 
-            <!-- Panduan Manual -->
-            <div class="rounded-2xl glass p-8 border-t border-emerald-500/20">
-                <div class="space-y-6 text-slate-300">
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-2">Langkah 1: Buka Halaman Login</h3>
-                        <p>Buka halaman <a href="https://tanahair.indonesia.go.id/portal-web/login" target="_blank"
-                                class="text-emerald-400 underline">Login Ina-Geoportal</a>. <br><span
-                                class="text-yellow-400 font-bold">PENTING: JANGAN Login dulu!</span> Biarkan kolom
-                            username/password kosong atau terisi, tapi jangan klik tombol Masuk.</p>
-                    </div>
+		<header class="pb-8 border-b border-line space-y-4">
+			<div class="w-12 h-12 rounded-lg border border-line bg-surface flex items-center justify-center text-accent">
+				<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+					<circle cx="8" cy="15" r="4" />
+					<path stroke-linecap="round" stroke-linejoin="round" d="M11.2 12.2L20 4m-3 0h3v3m-4 1l2 2" />
+				</svg>
+			</div>
+			<h1 class="font-display font-extrabold text-3xl sm:text-4xl text-ink">
+				Cara Mendapatkan Token API Ina-Geoportal
+			</h1>
+			<p class="text-base sm:text-lg text-ink-secondary leading-relaxed max-w-2xl">
+				Token akses diperlukan untuk autentikasi saat mengunduh data DEMNAS, BATNAS, dan RBI dari server Tanah Air Badan Informasi Geospasial (BIG).
+			</p>
+		</header>
 
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-2">Langkah 2: Buka Developer Tools</h3>
-                        <p>Tekan tombol <kbd class="bg-slate-700 px-2 py-1 rounded">F12</kbd> di keyboard Anda (atau
-                            Klik Kanan > <i>Inspect</i>) untuk membuka panel Developer Tools. Pilih tab <b>Network</b>.
-                        </p>
-                    </div>
+		<section class="mt-8 rounded-xl border border-line bg-surface p-6 sm:p-8 space-y-6">
+			<h2 class="font-display font-bold text-xl sm:text-2xl text-ink">Langkah Pengambilan Token</h2>
 
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-2">Langkah 3: Lakukan Login</h3>
-                        <p>Setelah tab Network terbuka, silakan isi username & password Anda di halaman web, lalu klik
-                            tombol <b>Masuk / Login</b>.</p>
-                    </div>
+			<ol class="space-y-6 text-ink-secondary leading-relaxed">
+				<li class="space-y-2">
+					<h3 class="font-display font-bold text-base sm:text-lg text-ink">1. Buka halaman login Ina-Geoportal</h3>
+					<p>
+						Jalankan Tool #1 di toolbox atau buka langsung halaman
+						<a
+							href="https://tanahair.indonesia.go.id/portal-web/login"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-hydro font-medium underline"
+						>
+							Login Ina-Geoportal
+						</a>.
+						Jangan langsung menekan tombol Masuk sebelum Developer Tools terbuka.
+					</p>
+				</li>
 
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-2">Langkah 4: Filter "signin" & Salin Token</h3>
-                        <p>Di daftar Network, cari nama request <code>signin</code> (gunakan kotak filter jika perlu).
-                            Klik request tersebut.</p>
-                        <p class="mt-2">Lihat di panel kanan (tab <b>Preview</b> atau <b>Response</b>). Cari teks
-                            <code>accessToken: "..."</code>. Salin kode panjang di dalamnya.</p>
-                        <div
-                            class="mt-2 bg-slate-800 p-3 rounded font-mono text-xs text-emerald-300 break-all border border-slate-700">
-                            Contoh Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNzY3MDM4NmQt...
-                        </div>
-                    </div>
+				<li class="space-y-2">
+					<h3 class="font-display font-bold text-base sm:text-lg text-ink">2. Buka panel Network pada Developer Tools</h3>
+					<p>
+						Tekan tombol <kbd class="font-mono text-xs bg-subtle border border-line px-1.5 py-0.5 rounded text-ink">F12</kbd> pada keyboard (atau klik kanan lalu pilih <em>Inspect</em>), kemudian buka tab <strong class="text-ink">Network</strong>.
+					</p>
+				</li>
 
-                    <div class="mt-4 rounded-xl overflow-hidden shadow-2xl border border-slate-700">
-                        <img src="/assets/img/token_guide.png" alt="Panduan Inspect Element" class="w-full">
-                        <div class="bg-slate-800 p-2 text-center text-xs text-slate-400">
-                            Ilustrasi: Tab Network > Filter "signin" > Response > Ambil accessToken
-                        </div>
-                    </div>
-                </div>
+				<li class="space-y-2">
+					<h3 class="font-display font-bold text-base sm:text-lg text-ink">3. Lakukan login akun</h3>
+					<p>
+						Isi username dan password akun Ina-Geoportal Anda, lalu klik tombol <strong class="text-ink">Masuk / Login</strong> sementara tab Network tetap terbuka.
+					</p>
+				</li>
 
-                <div class="mt-8 bg-slate-800 p-4 rounded-lg text-sm text-yellow-500 border border-yellow-500/20">
-                    ⚠ <b>Penting:</b> Token ini bersifat sementara (sekitar 1-2 jam). Jika kadaluarsa, ulangi langkah
-                    ini.
-                </div>
-            </div>
+				<li class="space-y-2">
+					<h3 class="font-display font-bold text-base sm:text-lg text-ink">4. Cari request signin dan salin accessToken</h3>
+					<p>
+						Pada daftar permintaan Network, ketik <code class="font-mono text-xs bg-subtle px-1.5 py-0.5 rounded text-ink">signin</code> pada kolom filter lalu klik request tersebut. Buka tab <strong class="text-ink">Preview</strong> atau <strong class="text-ink">Response</strong>, kemudian salin nilai di dalam <code class="font-mono text-xs bg-subtle px-1.5 py-0.5 rounded text-ink">accessToken</code>.
+					</p>
+					<pre class="mt-2 bg-subtle border border-line rounded-md p-3 font-mono text-xs text-ink overflow-x-auto"><code>accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</code></pre>
+				</li>
+			</ol>
 
-        </div>
-    </section>
+			<figure class="rounded-lg border border-line bg-subtle/40 overflow-hidden">
+				<div class="p-3">
+					<Image
+						src={screenLogin}
+						alt="Tangkapan layar Tool #1 Login INA-Geoportal di QGIS yang menampilkan panduan 8 langkah pengambilan token"
+						width={936}
+						height={846}
+						loading="lazy"
+						class="w-full h-auto block rounded border border-line/70"
+					/>
+				</div>
+				<figcaption class="px-4 py-2.5 bg-subtle/80 border-t border-line text-xs text-ink-muted">
+					Tangkapan layar Tool #1 (Login INA-Geoportal) di QGIS beserta ringkasan urutan pengambilan token.
+				</figcaption>
+			</figure>
+
+			<div class="callout callout-warn">
+				<strong>Perhatian:</strong> Token API bersifat sementara (sekitar 1 sampai 2 jam). Jika proses unduhan berhenti dengan pesan Unauthorized, ulangi langkah di atas untuk mengambil token baru.
+			</div>
+		</section>
+
+		<nav aria-label="Panduan lanjutan" class="mt-8 pt-6 border-t border-line flex flex-wrap gap-3 justify-between">
+			<a
+				href="/#download"
+				class="min-h-[44px] px-4 inline-flex items-center rounded-md border border-control/70 bg-surface hover:bg-subtle text-sm font-semibold text-ink transition-colors"
+			>
+				Kembali ke Pusat Unduhan
+			</a>
+			<div class="flex flex-wrap gap-2">
+				<a href="/guide_demnas" class="min-h-[44px] px-4 inline-flex items-center rounded-md bg-accent hover:bg-accent-hover text-accent-ink text-sm font-semibold transition-colors">
+					Lanjut ke Panduan DEMNAS
+				</a>
+				<a href="/guide_rbi" class="min-h-[44px] px-4 inline-flex items-center rounded-md border border-control/70 bg-surface hover:bg-subtle text-sm font-semibold text-ink transition-colors">
+					Panduan RBI
+				</a>
+			</div>
+		</nav>
+	</article>
 </Layout>

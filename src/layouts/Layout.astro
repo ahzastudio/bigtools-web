@@ -1,82 +1,541 @@
 ---
 import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/img/logo.png';
 
 interface Props {
 	title: string;
 	description?: string;
 }
 
-const { title, description = "Plugin QGIS Terbaik untuk Download Data Geospasial Indonesia (RBI, DEMNAS, BATNAS) secara otomatis. Gratis Seumur Hidup!" } = Astro.props;
+const {
+	title,
+	description = 'Toolbox GIS untuk QGIS, ArcGIS Pro, dan ArcMap untuk mengunduh data resmi BIG Indonesia (RBI, DEMNAS, BATNAS, Batas Wilayah, dan Metadata ISO 19115-3) secara batch.'
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/' || currentPath === '/index.html';
+
+const guideLinks = [
+	{
+		href: '/token_guide',
+		title: 'Panduan Token API',
+		desc: 'Mengambil accessToken dari Ina-Geoportal'
+	},
+	{
+		href: '/guide_rbi',
+		title: 'RBI Downloader',
+		desc: 'Unduh Peta Rupabumi Indonesia per kab/kota'
+	},
+	{
+		href: '/guide_demnas',
+		title: 'DEMNAS Downloader',
+		desc: 'Unduh dan mosaic DEM Nasional 0.27 arc-sec'
+	},
+	{
+		href: '/guide_batnas',
+		title: 'BATNAS Downloader',
+		desc: 'Unduh data Batimetri Nasional perairan'
+	}
+];
 ---
 
 <!doctype html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+		/>
+
+		<script is:inline>
+			(function () {
+				try {
+					var stored = localStorage.getItem('bigtools-theme');
+					var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+					if (stored === 'dark' || (!stored && prefersDark)) {
+						document.documentElement.classList.add('dark');
+					} else {
+						document.documentElement.classList.remove('dark');
+					}
+				} catch (e) {}
+			})();
+		</script>
 	</head>
-	<body class="bg-slate-900 text-white min-h-screen selection:bg-emerald-500 selection:text-white">
-        <!-- Navbar -->
-        <nav class="fixed w-full z-50 glass border-b border-slate-700/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex-shrink-0 flex items-center gap-3">
-                        <img src="/assets/images/logo-ahza.png" alt="Logo" class="h-10 w-auto">
-                        <a href="/" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">BIG Downloader</a>
-                    </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="/#features" class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition">Fitur</a>
-                            <a href="/#gallery" class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition">Galeri</a>
+	<body class="bg-canvas text-ink min-h-screen flex flex-col selection:bg-accent selection:text-accent-ink">
+		<a href="#main-content" class="skip-link">Langsung ke konten utama</a>
 
-                            <!-- Dropdown Panduan -->
-                            <div class="relative group">
-                                <button class="hover:text-emerald-400 px-3 py-2 rounded-md text-sm font-medium transition flex items-center gap-1">
-                                    Panduan Penggunaan
-                                    <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </button>
-                                <div class="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                    <div class="glass rounded-lg shadow-xl border border-slate-700 overflow-hidden">
-                                        <a href="/token_guide" class="block px-4 py-3 text-sm hover:bg-emerald-500/10 hover:text-emerald-400 transition border-b border-slate-700/50">
-                                            <div class="font-semibold">Panduan Token API</div>
-                                            <div class="text-xs text-slate-400">Cara mendapatkan token</div>
-                                        </a>
-                                        <a href="/guide_rbi" class="block px-4 py-3 text-sm hover:bg-emerald-500/10 hover:text-emerald-400 transition border-b border-slate-700/50">
-                                            <div class="font-semibold">RBI Downloader</div>
-                                            <div class="text-xs text-slate-400">Download Peta RBI</div>
-                                        </a>
-                                        <a href="/guide_demnas" class="block px-4 py-3 text-sm hover:bg-cyan-500/10 hover:text-cyan-400 transition border-b border-slate-700/50">
-                                            <div class="font-semibold">DEMNAS Downloader</div>
-                                            <div class="text-xs text-slate-400">Download DEM Nasional</div>
-                                        </a>
-                                        <a href="/guide_batnas" class="block px-4 py-3 text-sm hover:bg-blue-500/10 hover:text-blue-400 transition">
-                                            <div class="font-semibold">BATNAS Downloader</div>
-                                            <div class="text-xs text-slate-400">Download Batimetri Nasional</div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+		<header class="sticky top-0 z-40 bg-canvas/95 backdrop-blur-sm border-b border-line">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex items-center justify-between h-16 gap-3">
+					<a
+						href="/"
+						class="flex items-center gap-2.5 min-h-[44px] py-1 text-ink hover:text-accent transition-colors shrink-0"
+						aria-label="BIG Downloader Toolbox - Beranda"
+					>
+						<Image
+							src={logoImg}
+							alt=""
+							aria-hidden="true"
+							width={36}
+							height={36}
+							loading="eager"
+							class="w-9 h-9 rounded-full object-cover ring-1 ring-line bg-white shrink-0"
+						/>
+						<span class="flex flex-col leading-tight">
+							<span class="font-display font-bold text-base sm:text-lg tracking-tight text-ink">BIG Downloader</span>
+							<span class="font-mono text-[11px] text-ink-muted hidden sm:inline">Ahza Studio · v4.0.8</span>
+						</span>
+					</a>
 
-                            <a href="/#download" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-emerald-500/20">Download Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+					<nav aria-label="Navigasi utama" class="hidden md:flex items-center gap-1 lg:gap-2">
+						<a
+							href={isHome ? '#tools' : '/#tools'}
+							class="min-h-[44px] px-3 inline-flex items-center rounded-md text-sm font-medium text-ink-secondary hover:text-ink hover:bg-subtle/70 transition-colors"
+						>
+							Katalog Alat
+						</a>
+						<a
+							href={isHome ? '#workflow' : '/#workflow'}
+							class="min-h-[44px] px-3 inline-flex items-center rounded-md text-sm font-medium text-ink-secondary hover:text-ink hover:bg-subtle/70 transition-colors"
+						>
+							Alur Kerja
+						</a>
+						<a
+							href={isHome ? '#gallery' : '/#gallery'}
+							class="min-h-[44px] px-3 inline-flex items-center rounded-md text-sm font-medium text-ink-secondary hover:text-ink hover:bg-subtle/70 transition-colors"
+						>
+							Antarmuka
+						</a>
 
-		<slot />
+						<div class="relative" id="guide-dropdown">
+							<button
+								type="button"
+								id="guide-menu-btn"
+								aria-expanded="false"
+								aria-controls="guide-menu-panel"
+								aria-haspopup="true"
+								class="min-h-[44px] px-3 inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-ink-secondary hover:text-ink hover:bg-subtle/70 transition-colors"
+							>
+								<span>Panduan</span>
+								<svg
+									id="guide-menu-chevron"
+									class="w-4 h-4 transition-transform duration-150"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									aria-hidden="true"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+								</svg>
+							</button>
 
-        <!-- Footer -->
-        <footer class="py-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>&copy; 2024 Ahza Studio. Developed by <span class="text-emerald-400">Ardi Abu Ridho</span>.</p>
-        </footer>
+							<div
+								id="guide-menu-panel"
+								hidden
+								class="absolute right-0 mt-2 w-72 rounded-xl bg-surface border border-control/40 shadow-lg py-1.5 z-50"
+							>
+								{guideLinks.map((item) => {
+									const active = currentPath === item.href || currentPath === `${item.href}/`;
+									return (
+										<a
+											href={item.href}
+											aria-current={active ? 'page' : undefined}
+											class={`block px-4 py-2.5 min-h-[44px] transition-colors ${
+												active
+													? 'bg-accent-soft text-accent font-semibold'
+													: 'text-ink hover:bg-subtle/70'
+											}`}
+										>
+											<span class="block text-sm font-semibold">{item.title}</span>
+											<span class="block text-xs text-ink-muted mt-0.5">{item.desc}</span>
+										</a>
+									);
+								})}
+							</div>
+						</div>
+					</nav>
 
-		<script is:inline src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"79f60335dcfb450fb1430ce54f8a0172","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+					<div class="flex items-center gap-2 shrink-0">
+						<button
+							type="button"
+							id="theme-toggle"
+							aria-label="Ubah tema warna"
+							aria-pressed="false"
+							class="min-w-[44px] min-h-[44px] px-2.5 inline-flex items-center justify-center gap-1.5 rounded-md border border-control/60 bg-surface text-ink hover:bg-subtle active:scale-[0.98] transition-colors text-xs font-medium"
+						>
+							<svg
+								id="icon-sun"
+								class="w-4 h-4 hidden"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+							>
+								<circle cx="12" cy="12" r="4" />
+								<path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+							</svg>
+							<svg
+								id="icon-moon"
+								class="w-4 h-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+							</svg>
+							<span id="theme-label" class="hidden sm:inline">Gelap</span>
+						</button>
+
+						<a
+							href={isHome ? '#download' : '/#download'}
+							class="hidden md:inline-flex items-center justify-center min-h-[44px] px-4 rounded-md bg-accent hover:bg-accent-hover active:opacity-95 text-accent-ink text-sm font-semibold transition-colors"
+						>
+							Unduh v4.0.8
+						</a>
+
+						<button
+							type="button"
+							id="mobile-menu-btn"
+							aria-expanded="false"
+							aria-controls="mobile-nav"
+							class="md:hidden min-h-[44px] min-w-[44px] px-3 inline-flex items-center justify-center gap-1.5 rounded-md border border-control/60 bg-surface text-ink hover:bg-subtle transition-colors text-sm font-medium"
+						>
+							<svg
+								id="mobile-icon-open"
+								class="w-5 h-5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+							>
+								<path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+							</svg>
+							<svg
+								id="mobile-icon-close"
+								class="w-5 h-5 hidden"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+							>
+								<path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+							</svg>
+							<span id="mobile-menu-text">Menu</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="mobile-nav" hidden class="md:hidden border-t border-line bg-surface">
+				<nav aria-label="Navigasi seluler" class="max-w-6xl mx-auto px-4 py-4 space-y-4">
+					<div class="space-y-1">
+						<p class="px-3 text-xs font-mono uppercase tracking-wider text-ink-muted">Halaman Utama</p>
+						<a
+							href={isHome ? '#tools' : '/#tools'}
+							class="mobile-nav-link flex items-center min-h-[44px] px-3 rounded-md text-base font-medium text-ink hover:bg-subtle/80"
+						>
+							Katalog 7 Alat
+						</a>
+						<a
+							href={isHome ? '#workflow' : '/#workflow'}
+							class="mobile-nav-link flex items-center min-h-[44px] px-3 rounded-md text-base font-medium text-ink hover:bg-subtle/80"
+						>
+							Alur Kerja
+						</a>
+						<a
+							href={isHome ? '#gallery' : '/#gallery'}
+							class="mobile-nav-link flex items-center min-h-[44px] px-3 rounded-md text-base font-medium text-ink hover:bg-subtle/80"
+						>
+							Pratinjau Antarmuka
+						</a>
+					</div>
+
+					<div class="space-y-1 pt-2 border-t border-line">
+						<p class="px-3 text-xs font-mono uppercase tracking-wider text-ink-muted">Panduan Penggunaan</p>
+						{guideLinks.map((item) => {
+							const active = currentPath === item.href || currentPath === `${item.href}/`;
+							return (
+								<a
+									href={item.href}
+									aria-current={active ? 'page' : undefined}
+									class={`mobile-nav-link flex flex-col justify-center min-h-[44px] px-3 py-2 rounded-md ${
+										active ? 'bg-accent-soft text-accent font-semibold' : 'text-ink hover:bg-subtle/80'
+									}`}
+								>
+									<span class="text-sm font-semibold">{item.title}</span>
+									<span class="text-xs text-ink-muted">{item.desc}</span>
+								</a>
+							);
+						})}
+					</div>
+
+					<div class="pt-2 border-t border-line flex flex-col sm:flex-row gap-2">
+						<a
+							href={isHome ? '#download' : '/#download'}
+							class="mobile-nav-link flex-1 min-h-[44px] px-4 inline-flex items-center justify-center rounded-md bg-accent hover:bg-accent-hover text-accent-ink text-sm font-semibold"
+						>
+							Unduh Toolbox v4.0.8
+						</a>
+						<a
+							href="https://wa.me/6282254760769"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="mobile-nav-link flex-1 min-h-[44px] px-4 inline-flex items-center justify-center rounded-md border border-control/70 bg-canvas text-ink text-sm font-medium"
+						>
+							WhatsApp Developer
+						</a>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<main id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
+			<slot />
+		</main>
+
+		<footer class="border-t border-line bg-subtle/50 mt-auto">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+					<div class="md:col-span-5 space-y-3">
+						<div class="flex items-center gap-3">
+							<div class="inline-flex items-center justify-center bg-[#13222A] rounded-md px-2.5 py-1.5 border border-line/50">
+								<img
+									src="/assets/images/logo-ahza.png"
+									alt="Ahza Studio"
+									width="75"
+									height="45"
+									loading="lazy"
+									decoding="async"
+									class="h-7 w-auto"
+								/>
+							</div>
+							<div>
+								<p class="font-display font-bold text-base text-ink">BIG Downloader Toolbox</p>
+								<p class="font-mono text-xs text-ink-muted">Rilis v4.0.8 · QGIS, ArcGIS Pro, ArcMap</p>
+							</div>
+						</div>
+						<p class="text-sm text-ink-secondary max-w-md leading-relaxed">
+							Alat desktop untuk mengunduh peta dasar Indonesia (RBI, DEMNAS, BATNAS, dan batas wilayah) langsung dari layanan resmi Badan Informasi Geospasial (BIG).
+						</p>
+					</div>
+
+					<div class="md:col-span-4 space-y-2.5">
+						<p class="font-display font-semibold text-sm text-ink">Panduan</p>
+						<ul class="space-y-1 text-sm">
+							{guideLinks.map((item) => (
+								<li>
+									<a
+										href={item.href}
+										class="inline-flex items-center min-h-[44px] text-ink-secondary hover:text-accent transition-colors"
+									>
+										{item.title}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					<div class="md:col-span-3 space-y-2.5">
+						<p class="font-display font-semibold text-sm text-ink">Dukungan & Rilis</p>
+						<ul class="space-y-1 text-sm">
+							<li>
+								<a
+									href="https://github.com/ahzastudio/bigtools-web/releases"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center min-h-[44px] text-ink-secondary hover:text-accent transition-colors"
+								>
+									Rilis GitHub
+								</a>
+							</li>
+							<li>
+								<a
+									href="https://github.com/ahzastudio/bigtools-web/issues"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center min-h-[44px] text-ink-secondary hover:text-accent transition-colors"
+								>
+									Laporkan Kendala
+								</a>
+							</li>
+							<li>
+								<a
+									href="https://wa.me/6282254760769"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center min-h-[44px] text-ink-secondary hover:text-accent transition-colors"
+								>
+									WhatsApp: Ardi Abu Ridho
+								</a>
+							</li>
+							<li>
+								<a
+									href="https://tanahair.indonesia.go.id/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center min-h-[44px] text-ink-secondary hover:text-accent transition-colors"
+								>
+									Sumber Data: Ina-Geoportal BIG
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="mt-8 pt-6 border-t border-line flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-ink-muted">
+					<p>&copy; 2024-2026 Ahza Studio. Dikembangkan oleh <span class="font-medium text-ink">Ardi Abu Ridho</span>.</p>
+					<p class="font-mono">Data bersumber dari Badan Informasi Geospasial (BIG).</p>
+				</div>
+			</div>
+		</footer>
+
+		<script is:inline>
+			(function () {
+				// 1. Theme toggle
+				var themeBtn = document.getElementById('theme-toggle');
+				var iconSun = document.getElementById('icon-sun');
+				var iconMoon = document.getElementById('icon-moon');
+				var themeLabel = document.getElementById('theme-label');
+
+				function syncThemeUI() {
+					var isDark = document.documentElement.classList.contains('dark');
+					if (themeBtn) {
+						themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+						themeBtn.setAttribute('aria-label', isDark ? 'Ganti ke tema terang' : 'Ganti ke tema gelap');
+					}
+					if (iconSun && iconMoon) {
+						iconSun.classList.toggle('hidden', !isDark);
+						iconMoon.classList.toggle('hidden', isDark);
+					}
+					if (themeLabel) {
+						themeLabel.textContent = isDark ? 'Terang' : 'Gelap';
+					}
+				}
+
+				syncThemeUI();
+
+				if (themeBtn) {
+					themeBtn.addEventListener('click', function () {
+						var nextDark = !document.documentElement.classList.contains('dark');
+						document.documentElement.classList.toggle('dark', nextDark);
+						try {
+							localStorage.setItem('bigtools-theme', nextDark ? 'dark' : 'light');
+						} catch (e) {}
+						syncThemeUI();
+					});
+				}
+
+				// 2. Desktop Guide dropdown (click + keyboard accessible)
+				var guideDropdown = document.getElementById('guide-dropdown');
+				var guideBtn = document.getElementById('guide-menu-btn');
+				var guidePanel = document.getElementById('guide-menu-panel');
+				var guideChevron = document.getElementById('guide-menu-chevron');
+
+				function setGuideOpen(open) {
+					if (!guideBtn || !guidePanel) return;
+					guideBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+					guidePanel.hidden = !open;
+					if (guideChevron) {
+						guideChevron.classList.toggle('rotate-180', open);
+					}
+				}
+
+				if (guideBtn && guidePanel) {
+					guideBtn.addEventListener('click', function (e) {
+						e.stopPropagation();
+						var isOpen = guideBtn.getAttribute('aria-expanded') === 'true';
+						setGuideOpen(!isOpen);
+					});
+
+					guideBtn.addEventListener('keydown', function (e) {
+						if (e.key === 'ArrowDown') {
+							e.preventDefault();
+							setGuideOpen(true);
+							var firstLink = guidePanel.querySelector('a');
+							if (firstLink) firstLink.focus();
+						}
+					});
+
+					document.addEventListener('click', function (e) {
+						if (guideDropdown && !guideDropdown.contains(e.target)) {
+							setGuideOpen(false);
+						}
+					});
+
+					document.addEventListener('keydown', function (e) {
+						if (e.key === 'Escape' && guideBtn.getAttribute('aria-expanded') === 'true') {
+							setGuideOpen(false);
+							guideBtn.focus();
+						}
+					});
+				}
+
+				// 3. Mobile navigation drawer
+				var mobileBtn = document.getElementById('mobile-menu-btn');
+				var mobileNav = document.getElementById('mobile-nav');
+				var mobileOpenIcon = document.getElementById('mobile-icon-open');
+				var mobileCloseIcon = document.getElementById('mobile-icon-close');
+				var mobileText = document.getElementById('mobile-menu-text');
+
+				function setMobileOpen(open) {
+					if (!mobileBtn || !mobileNav) return;
+					mobileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+					mobileNav.hidden = !open;
+					if (mobileOpenIcon && mobileCloseIcon) {
+						mobileOpenIcon.classList.toggle('hidden', open);
+						mobileCloseIcon.classList.toggle('hidden', !open);
+					}
+					if (mobileText) {
+						mobileText.textContent = open ? 'Tutup' : 'Menu';
+					}
+				}
+
+				if (mobileBtn && mobileNav) {
+					mobileBtn.addEventListener('click', function () {
+						var isOpen = mobileBtn.getAttribute('aria-expanded') === 'true';
+						setMobileOpen(!isOpen);
+					});
+
+					var mobileLinks = mobileNav.querySelectorAll('.mobile-nav-link');
+					mobileLinks.forEach(function (link) {
+						link.addEventListener('click', function () {
+							setMobileOpen(false);
+						});
+					});
+
+					document.addEventListener('keydown', function (e) {
+						if (e.key === 'Escape' && mobileBtn.getAttribute('aria-expanded') === 'true') {
+							setMobileOpen(false);
+							mobileBtn.focus();
+						}
+					});
+				}
+			})();
+		</script>
+
+		<script
+			is:inline
+			defer
+			src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+			integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+			data-cf-beacon='{"version":"2024.11.0","token":"79f60335dcfb450fb1430ce54f8a0172","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+			crossorigin="anonymous"
+		></script>
 	</body>
 </html>
